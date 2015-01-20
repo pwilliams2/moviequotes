@@ -11,10 +11,12 @@
     
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
- 
 
-  </head>
+      <link rel="stylesheet" href="/static/css/moviequotes.css" >
+
+      </head>
   <body>
+  <div class="container">
   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -38,6 +40,25 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+      <div class="table-wrapper">
+         <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Quotes</th>
+              <th>Movie</th>
+            </tr>
+          </thead>
+          <tbody>
+       {% for moviequote in moviequotes_query %}
+        <tr>
+            <td>{{moviequote.quote}}</td>
+            <td class="movie">{{moviequote.movie}}</td>
+            </tr>
+        {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
    <div class="modal fade" id="add-quote-modal" tabindex="-1" role="dialog" aria-labelledby="Add Quote" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -68,7 +89,7 @@
     </div>
   </div>
 </div>
- 
+ </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Compiled and minified Bootstrap JavaScript -->

@@ -23,11 +23,22 @@ rh.mq.enableButtons = function () {
     $("#add-quote").click(function () {
         $("#insert-quote-modal .modal-title").html("Add a MovieQuote");
         $(".modal-footer button[type=submit]").html("Add Quote");
+         $("#quote").val("");
+         $("#movie").val("");
+        $(".entity-key").val("").prop("disabled", true);
     });
 
     $(".edit-movie-quote").click(function () {
         $("#insert-quote-modal .modal-title").html("Edit this MovieQuote");
         $(".modal-footer button[type=submit]").html("Edit Quote");
+
+        quote = $(this).find(".quote").text();
+        movie = $(this).find(".movie").text();
+        entityKey = $(this).find(".entity-key").text();
+
+        $("#quote").val(quote);
+        $("#movie").val(movie);
+        $("#entity_key").val(entityKey).prop("disabled", false);
     })
 
 };

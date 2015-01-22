@@ -13,7 +13,11 @@ handlers:
 - url: /static
   static_dir: static
 
-- url: .*
+# Endpoints handler
+- url: /_ah/spi/.*
+  script: movie_quotes_api.app
+
+- url: .*  #Always goes last
   script: main.app
 
 libraries:
@@ -21,3 +25,5 @@ libraries:
   version: "2.5.2"
 - name: jinja2
   version: latest
+- name: endpoints
+  version: 1.0

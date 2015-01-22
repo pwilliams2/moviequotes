@@ -38,17 +38,26 @@ class MovieQuotesPage(webapp2.RequestHandler):
 
 class AddQuoteAction(webapp2.RequestHandler):
     def post(self):
-        quote = self.request.get('quote')
-        movie = self.request.get('movie')
-        # self.response.write("TODO: Add quote " + quote + "from movie: " + movie)
-        logging.info(self.request)
-        movieQuote = MovieQuote(parent=PARENT_KEY,
-                                quote=quote,
-                                movie=movie)
-        movieQuote.put()
+        entity_key = self.request.get('entity_key')
+        # logging.info("key: " + entity_key)
+        # logging.info("quote: " + self.request.get("quote"))
+
+        if entity_key:
+            logging.info("URL safe = " + entity_key)
+            moviequote_key = ndb.Key(urlsafe=self.request.get("entity_key"))
+            moviequote = moviequote_key.get()
+            moviequote.quote = self.request.get("quote")
+            moviequote.movie = self.request.get("movie")
+            moviequote.put()
+        else:
+            new_movieQuote = MovieQuote(parent=PARENT_KEY,
+                                quote=self.request.get("quote"),
+                                movie=self.request.get("movie"))
+            new_movieQuote.put()
+
         self.redirect(self.request.referer)
 
 app = webapp2.WSGIApplication([
     ('/', MovieQuotesPage),
-    ('/addquote', AddQuoteAction)
+    ('/updatequote', AddQuoteAction)
 ], debug=True)
